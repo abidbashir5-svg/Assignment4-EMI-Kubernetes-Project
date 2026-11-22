@@ -1,0 +1,7 @@
+timestamp,run_id,replicas,target_req_per_sec,pod,cpu_millicores,cpu_request_millicores,cpu_utilization_percent,memory_mib
+2026-11-22T18:15:25+05:00,graph2_r3_rate100,3,100,emi-web-6669b74798-8s2g5,5,100,5.00,29
+2026-11-22T18:15:25+05:00,graph2_r3_rate100,3,100,emi-web-6669b74798-jqkvm,4,100,4.00,32
+2026-11-22T18:15:25+05:00,graph2_r3_rate100,3,100,emi-web-6669b74798-lk62n,4,100,4.00,34
+2026-11-22T18:15:40+05:00,graph2_r3_rate100,3,100,emi-web-6669b74798-8s2g5,5,100,5.00,29
+2026-11-22T18:15:40+05:00,graph2_r3_rate100,3,100,emi-web-6669b74798-jqkvm,4,100,4.00,32
+2026-11-22T18:15:40+05:00,graph2_r3_rate100,3,100,emi-web-6669b74798-lk62n,4,100,4.00,34

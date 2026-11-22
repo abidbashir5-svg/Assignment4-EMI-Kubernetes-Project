@@ -1,0 +1,32 @@
+COMMAND: httperf --hog --server=emi.local --port=80 --server-name=emi.local --wsesslog=12000,0,/home/abidbashir/projects/emi_milestone1/results/raw/fixed_r1_rate200.sessions --rate=200 --timeout=4 --add-header=Content-Type: application/json\n
+
+httperf: warning: open file limit > FD_SETSIZE; limiting max. # of open files to FD_SETSIZE
+httperf --hog --timeout=4 --client=0/1 --server=emi.local --server_name=emi.local --port=80 --uri=/ --rate=200 --send-buffer=4096 --recv-buffer=16384 --add-header='Content-Type: application/json\n' --wsesslog=12000,0.000,/home/abidbashir/projects/emi_milestone1/results/raw/fixed_r1_rate200.sessions
+Maximum connect burst length: 8
+
+Total: connections 12000 requests 12000 replies 3465 test-duration 64.001 s
+
+Connection rate: 187.5 conn/s (5.3 ms/conn, <=812 concurrent connections)
+Connection time [ms]: min 0.2 avg 714.0 max 4035.2 median 4.5 stddev 1124.0
+Connection time [ms]: connect 0.1
+Connection length [replies/conn]: 1.000
+
+Request rate: 187.5 req/s (5.3 ms/req)
+Request size [B]: 166.0
+
+Reply rate [replies/s]: min 0.0 avg 57.7 max 270.6 stddev 93.6 (12 samples)
+Reply time [ms]: response 713.4 transfer 0.5
+Reply size [B]: header 147.0 content 173.0 footer 0.0 (total 320.0)
+Reply status: 1xx=0 2xx=218 3xx=0 4xx=0 5xx=3247
+
+CPU time [s]: user 11.25 system 18.54 (user 17.6% system 29.0% total 46.5%)
+Net I/O: 47.5 KB/s (0.4*10^6 bps)
+
+Errors: total 8535 client-timo 8535 socket-timo 0 connrefused 0 connreset 0
+Errors: fd-unavail 0 addrunavail 0 ftab-full 0 other 0
+
+Session rate [sess/s]: min 0.00 avg 54.14 max 270.57 stddev 93.64 (3465/12000)
+Session: avg 1.00 connections/session
+Session lifetime [s]: 0.7
+Session failtime [s]: 4.0
+Session length histogram: 8535 3465

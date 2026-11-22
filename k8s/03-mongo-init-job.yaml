@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-init
+  namespace: emi
+spec:
+  backoffLimit: 8
+  activeDeadlineSeconds: 600
+  template:
+    metadata:
+      labels:
+        app: mongo-init
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: mongo-init
+          image: mongo:7
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              echo "Waiting for mongo-0..."
+              until mongosh --host mongo-0.mongo:27017 --quiet --eval 'db.adminCommand({ping: 1}).ok' >/dev/null 2>&1; do
+                sleep 3
+              done
+
+              echo "Checking / initializing replica set rs0..."
+              mongosh --host mongo-0.mongo:27017 --quiet --eval '
+                try {
+                  rs.conf();
+                  print("Replica set rs0 is already initialized.");
+                } catch (e) {
+                  if (e.code === 94 || e.codeName === "NotYetInitialized") {
+                    printjson(rs.initiate({
+                      _id: "rs0",
+                      members: [
+                        { _id: 0, host: "mongo-0.mongo:27017" },
+                        { _id: 1, host: "mongo-1.mongo:27017" },
+                        { _id: 2, host: "mongo-2.mongo:27017" }
+                      ]
+                    }));
+                  } else {
+                    throw e;
+                  }
+                }
+              '
+
+              echo "Waiting for one PRIMARY and two SECONDARY members..."
+              ready=0
+              for attempt in $(seq 1 90); do
+                status_json="$(mongosh --host mongo-0.mongo:27017 --quiet --eval 'JSON.stringify(rs.status().members.map(m => ({name: m.name, state: m.stateStr})))' 2>/dev/null || true)"
+                if printf '%s' "$status_json" | grep -q 'PRIMARY' && [ "$(printf '%s' "$status_json" | grep -o 'SECONDARY' | wc -l)" -ge 2 ]; then
+                  echo "$status_json"
+                  ready=1
+                  break
+                fi
+                sleep 3
+              done
+
+              if [ "$ready" -ne 1 ]; then
+                echo "Replica set did not reach PRIMARY + 2 SECONDARY within timeout."
+                mongosh --host mongo-0.mongo:27017 --quiet --eval 'rs.status()' || true
+                exit 1
+              fi
+
+              echo "Replica set initialization completed successfully."

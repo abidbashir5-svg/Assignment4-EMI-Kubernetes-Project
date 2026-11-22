@@ -1,0 +1,13 @@
+fixed_r1_rate10
+fixed_r1_rate25
+fixed_r1_rate50
+fixed_r2_rate10
+fixed_r2_rate25
+fixed_r2_rate50
+fixed_r3_rate10
+fixed_r3_rate25
+fixed_r3_rate50
+fixed_r1_rate100
+fixed_r1_rate200
+fixed_r2_rate100
+fixed_r2_rate200

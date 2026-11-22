@@ -1,0 +1,21 @@
+MILESTONE 4 — FINAL HPA REPEAT RUN SUMMARY
+Source: user-provided terminal screenshot, final repeated 10-minute workload.
+
+Workload schedule:
+- 0–2 minutes: 10 POST requests/sec
+- 2–7 minutes: 100 POST requests/sec
+- 7–10 minutes: 10 POST requests/sec
+
+Final aggregate output:
+- Offered: 33,003
+- Submitted: 9,091
+- Dropped before dispatch: 23,912
+- Completed: 9,091
+- Successful HTTP 2xx: 6,198
+- HTTP 5xx: 2,084
+- Other/client errors: 809
+
+Interpretation:
+The scheduled ten-minute workload completed, but the client sent only 9,091 of 33,003 offered requests. The remaining 23,912 were dropped before dispatch by the load-generator concurrency limit. The completed requests included 6,198 HTTP 2xx, 2,084 HTTP 5xx and 809 other/client errors.
+
+The final repeat-run time-series CSV was not included in the attached archive. The archived first-capture time-series (19/40 samples through 4m45s) is therefore kept separate in Graph 3 and is not combined with these final aggregate totals.

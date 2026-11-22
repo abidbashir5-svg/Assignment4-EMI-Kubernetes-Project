@@ -1,0 +1,8 @@
+MILESTONE 4 HPA AUTOSCALING SUMMARY
+Offered requests: 33003
+Submitted requests: 10726
+Dropped before dispatch: 22277
+Completed requests: 10726
+HTTP 2xx successful: 10483
+HTTP 5xx: 0
+Client/other errors: 243
